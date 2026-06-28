@@ -27,7 +27,9 @@ jobs:
         pip install kivy matplotlib numpy pydantic buildozer
 
     - name: Initialize Buildozer
-      run: python3 -m buildozer init
+      run: |
+        python3 -m buildozer init
+        sed -i 's/# android.accept_sdk_license = False/android.accept_sdk_license = True/g' buildozer.spec
 
     - name: Configure buildozer.spec
       run: |
