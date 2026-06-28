@@ -24,10 +24,10 @@ jobs:
         sudo apt-get install -y libsqlite3-dev lld openjdk-17-jdk shared-mime-info
         pip install --upgrade pip
         pip install "cython<3.0.0"
-        pip install kivy matplotlib numpy pydantic
+        pip install kivy matplotlib numpy pydantic buildozer
 
     - name: Initialize Buildozer
-      run: buildozer init
+      run: python3 -m buildozer init
 
     - name: Configure buildozer.spec
       run: |
@@ -35,7 +35,7 @@ jobs:
         sed -i 's/android.archs = arm64-v8a/android.archs = armeabi-v7a/g' buildozer.spec
 
     - name: Build with Buildozer
-      run: buildozer android debug
+      run: python3 -m buildozer android debug
 
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
