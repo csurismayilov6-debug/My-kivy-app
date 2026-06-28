@@ -101,3 +101,5 @@ class MatematikApp(App):
 
 if __name__ == '__main__':
     MatematikApp().run()
+    # yenilendi
+
