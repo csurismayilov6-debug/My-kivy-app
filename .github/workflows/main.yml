@@ -23,14 +23,15 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y libsqlite3-dev lld openjdk-17-jdk shared-mime-info
         pip install --upgrade pip
-        pip install buildozer cython git+https://github.com/kivy/kivy.git@master
+        pip install "cython<3.0.0"
+        pip install kivy matplotlib numpy pydantic
 
     - name: Initialize Buildozer
       run: buildozer init
 
     - name: Configure buildozer.spec
       run: |
-        sed -i 's/# requirements = python3,kivy/requirements = python3,kivy==master,numpy,matplotlib,pydantic/g' buildozer.spec
+        sed -i 's/# requirements = python3,kivy/requirements = python3,kivy,numpy,matplotlib,pydantic/g' buildozer.spec
         sed -i 's/android.archs = arm64-v8a/android.archs = armeabi-v7a/g' buildozer.spec
 
     - name: Build with Buildozer
