@@ -25,11 +25,12 @@ jobs:
 
       - name: Build with Buildozer
         run: |
-          # SDK lisenziyalarını avtomatik qəbul edirik
+          # SDK lisenziyasını avtomatik qəbul edirik
           export BUILDOZER_ACCEPT_SDK=1
-          # Qovluğu əvvəlcədən hazırlayırıq
-          mkdir -p .buildozer/android/platform
-          # Build-i işə salırıq
+          # Əvvəlki qalıqları tam təmizləyirik
+          buildozer android clean
+          # Build prosesini ən yüksək detalla (log level 2) işə salırıq
+          # Bu, xətanın tam olaraq harada baş verdiyini bizə göstərəcək
           buildozer -v android debug
 
       - name: Upload APK
