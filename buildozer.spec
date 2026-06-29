@@ -5,13 +5,15 @@ package.domain = org.test
 source.dir = .
 source.include_exts = py,png,jpg,kv,atlas
 version = 0.1
+requirements = python3,kivy
 
-# Bura əlavə etdiyin tələblərdir:
-requirements = python3,kivy,openssl,sqlite3
-
+# Android parametrləri
 orientation = portrait
-android.archs = armeabi-v7a
+fullscreen = 0
+android.presplash_color = #FFFFFF
 android.accept_sdk_license = True
-android.ndk = 25b
-android.ndk_api = 24
-android.api = 33
+
+[buildozer]
+log_level = 2
+warn_on_root = 1
+# Bu hissəni boş saxlayırıq ki, Buildozer avtomatik ən stabil versiyanı seçsin
