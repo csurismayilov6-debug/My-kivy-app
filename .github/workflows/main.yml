@@ -23,11 +23,14 @@ jobs:
           python -m pip install --upgrade pip
           pip install --upgrade buildozer cython
 
+      - name: Pre-setup python-for-android
+        run: |
+          # Qovluğu birbaşa özümüz yaradırıq ki, Buildozer onu axtaranda tapsın
+          mkdir -p .buildozer/android/platform
+          git clone https://github.com/kivy/python-for-android.git .buildozer/android/platform/python-for-android
+
       - name: Build with Buildozer
         run: |
-          # Buildozerin öz mühitini təmizləyirik
-          buildozer android clean
-          # Build-i çalışdırırıq
           buildozer -v android debug
 
       - name: Upload APK
