@@ -23,14 +23,18 @@ jobs:
           python -m pip install --upgrade pip
           pip install --upgrade buildozer cython
 
+      - name: Prepare build environment
+        run: |
+          # Buildozer üçün lazım olan qovluq strukturunu əvvəlcədən yaradırıq
+          mkdir -p .buildozer/android/platform
+          # python-for-android-ü birbaşa klonlayırıq ki, fayl tapılmama xətası olmasın
+          git clone https://github.com/kivy/python-for-android.git .buildozer/android/platform/python-for-android
+
       - name: Build with Buildozer
         run: |
-          # SDK lisenziyasını avtomatik qəbul edirik
+          # SDK lisenziyalarını avtomatik qəbul edirik
           export BUILDOZER_ACCEPT_SDK=1
-          # Əvvəlki qalıqları tam təmizləyirik
-          buildozer android clean
-          # Build prosesini ən yüksək detalla (log level 2) işə salırıq
-          # Bu, xətanın tam olaraq harada baş verdiyini bizə göstərəcək
+          # Build prosesini başlat
           buildozer -v android debug
 
       - name: Upload APK
@@ -38,10 +42,3 @@ jobs:
         with:
           name: my-app-apk
           path: bin/*.apk
-
-      - name: Upload logs on failure
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-logs
-          path: .buildozer/logs/
