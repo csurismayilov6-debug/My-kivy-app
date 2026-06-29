@@ -29,6 +29,8 @@ jobs:
         run: |
           # Qovluqları təmizləyib yenidən quraşdırırıq
           buildozer android clean
+          # Buildozerə avtomatik SDK yükləmək üçün icazə veririk
+          export BUILDOZER_ALLOW_SDK=1
           buildozer -v android debug
 
       - name: Upload APK
