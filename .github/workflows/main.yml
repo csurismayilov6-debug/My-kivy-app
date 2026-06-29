@@ -25,7 +25,16 @@ jobs:
 
       - name: Build with Buildozer
         run: |
+          # Əvvəlki qalıqları təmizləyirik
+          buildozer android clean
+          # APK-nı yaradırıq
           buildozer -v android debug
+
+      - name: Upload APK if successful
+        uses: actions/upload-artifact@v4
+        with:
+          name: package
+          path: bin/*.apk
 
       - name: Upload logs if failed
         if: failure()
