@@ -33,10 +33,12 @@ jobs:
           # Lazımi kitabxanaları quraşdırırıq
           pip install -e .
 
-      - name: Build with Buildozer
+        - name: Build with Buildozer
         run: |
           export BUILDOZER_ACCEPT_SDK=1
-          # Buradakı -v komandası detallı log verir
+          # Köhnə və uyğunsuz NDK-nı təmizləyir
+          buildozer android clean
+          # İndi r25b ilə yenidən qurur
           buildozer -v android debug
 
       - name: Upload APK
@@ -44,3 +46,6 @@ jobs:
         with:
           name: my-app-apk
           path: bin/*.apk
+
+
+      
