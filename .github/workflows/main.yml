@@ -23,16 +23,20 @@ jobs:
           python -m pip install --upgrade pip
           pip install --upgrade buildozer cython
 
+      - name: Force Install Platform
+        run: |
+          # Buildozer-in axtardığı yolu məcburi yaradırıq
+          mkdir -p .buildozer/android/platform
+          cd .buildozer/android/platform
+          git clone https://github.com/kivy/python-for-android.git
+          cd python-for-android
+          # Lazımi kitabxanaları quraşdırırıq
+          pip install -e .
+
       - name: Build with Buildozer
         run: |
-          # SDK və NDK üçün bütün lisenziyaları avtomatik təsdiqləyirik
           export BUILDOZER_ACCEPT_SDK=1
-          
-          # 1. Əvvəlcə mühiti təmizləyirik
-          buildozer android clean
-          
-          # 2. Build prosesi
-          # Burada vacib məqam: -v bayrağı ilə logları tam alırıq
+          # Buradakı -v komandası detallı log verir
           buildozer -v android debug
 
       - name: Upload APK
@@ -40,10 +44,3 @@ jobs:
         with:
           name: my-app-apk
           path: bin/*.apk
-
-      - name: Upload logs on failure
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-logs
-          path: .buildozer/logs/
