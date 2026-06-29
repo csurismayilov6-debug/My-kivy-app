@@ -20,23 +20,24 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install --upgrade buildozer cython
+          # Buildozerin özünə lazım olan mühərriki birbaşa quraşdırırıq
+          pip install --upgrade python-for-android
           sudo apt-get update
-          sudo apt-get install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo6 cmake libffi-dev libssl-dev
+          sudo apt-get install -y git zip unzip openjdk-17-jdk autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo6 cmake libffi-dev libssl-dev
 
       - name: Build with Buildozer
         run: |
-          # Əvvəlki qalıqları təmizləyirik
+          # Qovluqları təmizləyib yenidən quraşdırırıq
           buildozer android clean
-          # APK-nı yaradırıq
           buildozer -v android debug
 
-      - name: Upload APK if successful
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: package
+          name: my-app-apk
           path: bin/*.apk
 
-      - name: Upload logs if failed
+      - name: Upload logs on failure
         if: failure()
         uses: actions/upload-artifact@v4
         with:
