@@ -10,3 +10,6 @@ orientation = portrait
 # Bu hissəni dəyişdik (arm64-v8a yerinə armeabi-v7a):
 android.archs = armeabi-v7a
 android.accept_sdk_license = True
+android.ndk = 25b
+android.ndk_api = 24
+android.api = 33
